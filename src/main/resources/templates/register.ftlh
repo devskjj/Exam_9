@@ -37,6 +37,14 @@
             </div>
 
             <div class="form-group">
+                <label for="phone">📱 <@spring.message "register.phone.label"/></label>
+                <input type="tel" id="phone" name="phone"
+                       placeholder="<@spring.message "register.phone.placeholder"/>"
+                       pattern="[0-9]{10}" required>
+                <small class="form-hint"><@spring.message "register.phone.hint"/></small>
+            </div>
+
+            <div class="form-group">
                 <label for="roleName">👑 <@spring.message "register.role.label"/></label>
                 <select id="roleName" name="roleName" required>
                     <option value="USER"><@spring.message "register.role.option.user"/></option>

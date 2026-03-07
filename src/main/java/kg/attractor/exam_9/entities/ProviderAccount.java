@@ -19,6 +19,10 @@ public class ProviderAccount {
     @JoinColumn(name = "provider_id", nullable = false)
     private ServiceProvider provider;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @Column(nullable = false)
     private String phoneNumber;
 

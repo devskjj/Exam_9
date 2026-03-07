@@ -35,12 +35,17 @@ public class UserService {
             throw new ValidationException("Пользователь с email " + dto.getEmail() + " уже существует");
         }
 
+        if (userRepository.existsByPhone(dto.getPhone())) {
+            throw new ValidationException("Пользователь с телефоном " + dto.getPhone() + " уже существует");
+        }
+
         Role role = roleRepository.findByName(dto.getRoleName()).orElseThrow(() -> new NoSuchElementException("Роль не найдена"));
 
         User user = User.builder()
                 .username(dto.getUsername())
                 .email(dto.getEmail())
                 .password(passwordEncoder.encode(dto.getPassword()))
+                .phone(dto.getPhone())
                 .accountNumber(generateAccountNumber())
                 .balance(1000.0)
                 .enabled(true)

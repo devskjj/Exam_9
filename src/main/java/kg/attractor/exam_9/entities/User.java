@@ -30,6 +30,9 @@ public class User {
     @Column(nullable = false, unique = true, length = 6)
     private String accountNumber;
 
+    @Column(name = "phone", nullable = false, unique = true)
+    private String phone;
+
     @Column(nullable = false)
     private Double balance = 1000.0;
 
@@ -45,4 +48,7 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Transaction> transactions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<ProviderAccount> providerAccounts = new ArrayList<>();
 }
