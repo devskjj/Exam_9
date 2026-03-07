@@ -20,7 +20,16 @@
             </div>
 
             <nav class="nav-menu">
-                
+
+                <div class="language-switcher">
+                    <#if .lang?string == "ru">
+                        <a href="?lang=en" class="lang-btn">🇬🇧 English</a>
+                    <#else>
+                        <a href="?lang=ru" class="lang-btn">🇷🇺 Русский</a>
+                    </#if>
+                </div>
+
+
                 <#if isAuthenticated?? && isAuthenticated>
                     <a href="/profile">Профиль</a>
                     <a href="/transfer">Переводы</a>
