@@ -2,8 +2,8 @@ package kg.attractor.exam_9.service;
 
 import jakarta.validation.ValidationException;
 import kg.attractor.exam_9.dto.TransactionDto;
-import kg.attractor.exam_9.dto.UserProfileDto;
-import kg.attractor.exam_9.dto.UserRegistrationDto;
+import kg.attractor.exam_9.dto.user.UserProfileDto;
+import kg.attractor.exam_9.dto.user.UserRegistrationDto;
 import kg.attractor.exam_9.entities.Role;
 import kg.attractor.exam_9.entities.Transaction;
 import kg.attractor.exam_9.entities.User;
@@ -31,6 +31,7 @@ public class UserService {
 
     @Transactional
     public void register(UserRegistrationDto dto) {
+        log.info("Registering user {}", dto.getEmail());
         if (userRepository.existsByEmail(dto.getEmail())) {
             throw new ValidationException("Пользователь с email " + dto.getEmail() + " уже существует");
         }
@@ -57,6 +58,7 @@ public class UserService {
     }
 
     private String generateAccountNumber() {
+        log.info("Generating account number");
         String accountNumber;
         do {
             accountNumber = UUID.randomUUID().toString().replace("-", "").substring(0, 6).toUpperCase();
@@ -64,8 +66,8 @@ public class UserService {
         return accountNumber;
     }
 
-
     public UserProfileDto getUserProfileByEmail(String email) {
+        log.info("Fetching user profile for email {}", email);
         User user = userRepository.findByEmailIgnoreCase(email)
                 .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
 
@@ -73,32 +75,6 @@ public class UserService {
         dto.setId(user.getId());
         dto.setUsername(user.getUsername());
         dto.setEmail(user.getEmail());
-        dto.setAccountNumber(user.getAccountNumber());
-        dto.setBalance(user.getBalance());
-        dto.setRoleName(user.getRole().getName());
-
-        dto.setTransactions(transactionRepository.findByUserOrderByDateDesc(user)
-                .stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList()));
-
-        return dto;
-    }
-
-
-
-
-
-
-
-
-    public UserProfileDto getUserProfile(String username) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        UserProfileDto dto = new UserProfileDto();
-        dto.setId(user.getId());
-        dto.setUsername(user.getUsername());
         dto.setAccountNumber(user.getAccountNumber());
         dto.setBalance(user.getBalance());
         dto.setRoleName(user.getRole().getName());

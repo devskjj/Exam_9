@@ -8,5 +8,6 @@ import java.util.Optional;
 
 public interface ProviderAccountRepository extends JpaRepository<ProviderAccount, Integer> {
     Optional<ProviderAccount> findByProviderAndAccountNumber(ServiceProvider provider, String accountNumber);
+
     boolean existsByProviderAndAccountNumber(ServiceProvider provider, String accountNumber);
 }

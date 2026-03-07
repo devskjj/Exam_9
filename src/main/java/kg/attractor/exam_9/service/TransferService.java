@@ -23,6 +23,7 @@ public class TransferService {
 
     @Transactional
     public void transfer(String senderUsername, TransferDto dto) {
+        log.info("Sending transfer for user {}", senderUsername);
         User sender = userService.findByEmail(senderUsername);
         User receiver = userService.getUserByAccountNumber(dto.getTargetAccountNumber());
 

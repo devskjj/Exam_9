@@ -31,5 +31,4 @@ public class ProviderAccount {
 
     @Column(nullable = false)
     private Double balance = 0.0;
-
 }

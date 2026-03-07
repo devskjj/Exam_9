@@ -16,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/transfer")
 @RequiredArgsConstructor
 public class TransferController {
-
     private final TransferService transferService;
     private final MessageSource messageSource;
 

@@ -20,7 +20,6 @@ import java.util.Locale;
 @Service
 @RequiredArgsConstructor
 public class PaymentService {
-
     private final UserService userService;
     private final ServiceProviderService providerService;
     private final ProviderAccountRepository providerAccountRepository;
@@ -29,6 +28,7 @@ public class PaymentService {
 
     @Transactional
     public void processPayment(String userEmail, PaymentDto dto) {
+        log.info("Processing payment for user {}", userEmail);
         User user = userService.findByEmail(userEmail);
         ServiceProvider provider = providerService.getProviderById(dto.getProviderId());
 
@@ -36,12 +36,9 @@ public class PaymentService {
                 .findByProviderAndAccountNumber(provider, dto.getAccountNumber())
                 .orElseThrow(() -> new RuntimeException(getMessage("payment.error.account.notfound")));
 
-
-
         if (user.getBalance() < dto.getAmount()) {
             throw new RuntimeException(getMessage("payment.error.insufficient.funds"));
         }
-
 
         user.setBalance(user.getBalance() - dto.getAmount());
         providerAccount.setBalance(providerAccount.getBalance() + dto.getAmount());

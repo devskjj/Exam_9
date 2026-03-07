@@ -1,6 +1,6 @@
 package kg.attractor.exam_9.util;
 
-import kg.attractor.exam_9.dto.UserProfileDto;
+import kg.attractor.exam_9.dto.user.UserProfileDto;
 import kg.attractor.exam_9.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @ControllerAdvice
 @RequiredArgsConstructor
 public class GlobalModelAttributes {
-
     private final UserService userService;
 
     @ModelAttribute("isAuthenticated")

@@ -17,6 +17,7 @@ public class ServiceProviderService {
     private final ServiceProviderRepository providerRepository;
 
     public List<ServiceProviderDto> getAllProviders() {
+        log.info("Getting all providers");
         return providerRepository.findAll()
                 .stream()
                 .map(this::convertToDto)
@@ -24,6 +25,7 @@ public class ServiceProviderService {
     }
 
     public ServiceProvider getProviderById(Integer id) {
+        log.info("Getting provider by id {}", id);
         return providerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Provider not found"));
     }

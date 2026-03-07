@@ -1,5 +1,6 @@
-package kg.attractor.exam_9.dto;
+package kg.attractor.exam_9.dto.user;
 
+import kg.attractor.exam_9.dto.TransactionDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,6 @@ public class UserProfileDto {
     private Integer id;
     private String username;
     private String email;
-
     private String accountNumber;
     private Double balance;
     private String roleName;

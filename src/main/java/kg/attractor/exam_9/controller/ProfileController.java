@@ -1,6 +1,6 @@
 package kg.attractor.exam_9.controller;
 
-import kg.attractor.exam_9.dto.UserProfileDto;
+import kg.attractor.exam_9.dto.user.UserProfileDto;
 import kg.attractor.exam_9.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/profile")
 @RequiredArgsConstructor
 public class ProfileController {
-
     private final UserService userService;
 
     @GetMapping

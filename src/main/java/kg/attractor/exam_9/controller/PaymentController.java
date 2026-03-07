@@ -20,7 +20,6 @@ import java.util.List;
 @RequestMapping("/payment")
 @RequiredArgsConstructor
 public class PaymentController {
-
     private final PaymentService paymentService;
     private final ServiceProviderService providerService;
     private final MessageSource messageSource;
