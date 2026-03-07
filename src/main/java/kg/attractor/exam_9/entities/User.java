@@ -18,8 +18,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String username;
+
+    @Column(nullable = false, unique = true)
+    private String email;
 
     @Column(nullable = false)
     private String password;
@@ -29,6 +32,9 @@ public class User {
 
     @Column(nullable = false)
     private Double balance = 1000.0;
+
+    @Column(name = "enabled", nullable = false)
+    private Boolean enabled;
 
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)

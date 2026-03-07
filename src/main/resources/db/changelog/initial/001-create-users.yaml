@@ -19,6 +19,13 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: false
+                    unique: false
+
+              - column:
+                  name: email
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
                     unique: true
 
               - column:
@@ -40,6 +47,14 @@ databaseChangeLog:
                   defaultValueNumeric: "1000.0"
                   constraints:
                     nullable: false
+
+              - column:
+                  name: enabled
+                  type: boolean
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+
               - column:
                   name: role_id
                   type: int
