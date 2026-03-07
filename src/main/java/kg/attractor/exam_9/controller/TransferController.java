@@ -3,6 +3,8 @@ package kg.attractor.exam_9.controller;
 import kg.attractor.exam_9.dto.TransferDto;
 import kg.attractor.exam_9.service.TransferService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class TransferController {
 
     private final TransferService transferService;
+    private final MessageSource messageSource;
 
     @GetMapping
     public String transferPage(Model model) {
@@ -30,10 +33,17 @@ public class TransferController {
         try {
             String userEmail = userDetails.getUsername();
             transferService.transfer(userEmail, transferDto);
-            redirectAttributes.addFlashAttribute("success", "Перевод успешно выполнен!");
+
+            String successMessage = messageSource.getMessage(
+                    "transfer.success",
+                    null,
+                    LocaleContextHolder.getLocale()
+            );
+
+            redirectAttributes.addFlashAttribute("success", successMessage);
             return "redirect:/profile";
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Ошибка перевода: " + e.getMessage());
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
             return "redirect:/transfer";
         }
     }
