@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: wallet
+      changes:
+        - createTable:
+            tableName: provider_accounts
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: provider_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_provider_accounts_provider
+                    references: service_providers(id)
+
+              - column:
+                  name: phone_number
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: account_number
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+
+              - column:
+                  name: balance
+                  type: double
+                  defaultValueNumeric: "0.0"
+                  constraints:
+                    nullable: false
