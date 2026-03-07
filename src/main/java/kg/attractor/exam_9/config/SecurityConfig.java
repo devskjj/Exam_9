@@ -32,8 +32,23 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/")
                         .permitAll())
 
+
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+
+                        .requestMatchers("/", "/auth/login", "/auth/register", "/css/**", "/js/**", "/images/**").permitAll()
+
+                        .requestMatchers("/profile/**", "/transfer/**", "/payment/**").authenticated()
+
                         .anyRequest().permitAll())
+
+                .formLogin(form -> form
+                        .loginPage("/auth/login")
+                        .loginProcessingUrl("/auth/login")
+                        .defaultSuccessUrl("/profile")
+                        .failureUrl("/auth/login?error=true")
+                        .permitAll()
+                )
+
                 .securityContext(securityContext -> securityContext.securityContextRepository(securityContextRepository));
         return http.build();
     }
