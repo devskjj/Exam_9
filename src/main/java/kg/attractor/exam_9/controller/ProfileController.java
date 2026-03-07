@@ -23,9 +23,6 @@ public class ProfileController {
         UserProfileDto profile = userService.getUserProfileByEmail(email);
 
         model.addAttribute("profile", profile);
-        model.addAttribute("balance", profile.getBalance());
-        model.addAttribute("transactions", profile.getTransactions());
-
         return "profile";
     }
 }
