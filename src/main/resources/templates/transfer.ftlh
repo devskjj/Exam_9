@@ -1,42 +1,64 @@
+<#import "spring.ftl" as spring>
 <#import "layout.ftlh" as layout>
 
-<@layout.page title="Перевод средств">
-    <div class="content-card" style="max-width: 500px; margin: 0 auto;">
-        <h1 class="page-title">💸 Перевод средств</h1>
+<@layout.page title="">
+    <div class="content-card transfer-container">
+        <h1 class="page-title">💸 <@spring.message "transfer.page.title"/></h1>
 
         <#if success??>
             <div class="alert alert-success">
-                ${success}
+                <@spring.message "transfer.success"/>
             </div>
         </#if>
 
         <#if error??>
             <div class="alert alert-danger">
-                ${error}
+                <#if error == "Cannot transfer to yourself">
+                    <@spring.message "transfer.error.self"/>
+                <#elseif error == "Insufficient funds">
+                    <@spring.message "transfer.error.insufficient.funds"/>
+                <#elseif error == "Invalid amount">
+                    <@spring.message "transfer.error.invalid.amount"/>
+                <#elseif error == "Account not found">
+                    <@spring.message "transfer.error.account.notfound"/>
+                <#else>
+                    <@spring.messageArgs "transfer.error", [error] />
+                </#if>
             </div>
         </#if>
 
-        <form action="/transfer" method="post">
+        <div class="current-balance-info">
+            <p><@spring.message "balance.current"/> <strong>${balance!0} <@spring.message "currency.som"/></strong></p>
+        </div>
+
+        <form action="/transfer" method="post" class="transfer-form">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
             <div class="form-group">
-                <label for="targetAccountNumber">🔢 Номер счета получателя</label>
+                <label for="targetAccountNumber">🔢 <@spring.message "transfer.account.label"/></label>
                 <input type="text" id="targetAccountNumber" name="targetAccountNumber"
-                       placeholder="Введите 6-значный номер" pattern="[0-9]{6}" maxlength="6" required>
-                <small style="color: #999;">6-значный номер счета</small>
+                       placeholder="<@spring.message "transfer.account.placeholder"/>"
+                       pattern="[0-9]{6}" maxlength="6" value="${targetAccount!''}" required>
+                <small class="form-hint"><@spring.message "transfer.account.hint"/></small>
             </div>
 
             <div class="form-group">
-                <label for="amount">💵 Сумма перевода (сом)</label>
+                <label for="amount">💵 <@spring.message "transfer.amount.label"/></label>
                 <input type="number" id="amount" name="amount"
-                       placeholder="Введите сумму" min="1" step="0.01" required>
+                       placeholder="<@spring.message "transfer.amount.placeholder"/>"
+                       min="1" step="0.01" value="${amount!''}" required>
+                <small class="form-hint"><@spring.message "transfer.amount.hint"/></small>
             </div>
 
-            <button type="submit" class="btn btn-success" style="width: 100%;">Перевести</button>
+            <button type="submit" class="btn btn-success transfer-submit">
+                <@spring.message "transfer.submit"/>
+            </button>
         </form>
 
-        <div style="margin-top: 20px; text-align: center;">
-            <a href="/profile" style="color: #667eea;">← Вернуться в профиль</a>
+        <div class="transfer-footer">
+            <a href="/profile" class="back-link">
+                <@spring.message "transfer.back.profile"/>
+            </a>
         </div>
     </div>
 </@layout.page>
