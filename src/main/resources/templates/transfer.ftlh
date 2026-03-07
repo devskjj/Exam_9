@@ -38,7 +38,7 @@
                 <label for="targetAccountNumber">🔢 <@spring.message "transfer.account.label"/></label>
                 <input type="text" id="targetAccountNumber" name="targetAccountNumber"
                        placeholder="<@spring.message "transfer.account.placeholder"/>"
-                       pattern="[0-9]{6}" maxlength="6" value="${targetAccount!''}" required>
+                        maxlength="6" value="${targetAccount!''}">
                 <small class="form-hint"><@spring.message "transfer.account.hint"/></small>
             </div>
 
@@ -46,7 +46,7 @@
                 <label for="amount">💵 <@spring.message "transfer.amount.label"/></label>
                 <input type="number" id="amount" name="amount"
                        placeholder="<@spring.message "transfer.amount.placeholder"/>"
-                       min="1" step="0.01" value="${amount!''}" required>
+                       step="0.01" value="${amount!''}" >
                 <small class="form-hint"><@spring.message "transfer.amount.hint"/></small>
             </div>
 

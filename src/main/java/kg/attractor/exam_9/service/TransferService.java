@@ -13,12 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class TransferService {
-    private UserService userService;
-    private TransactionRepository transactionRepository;
+    private final UserService userService;
+    private final TransactionRepository transactionRepository;
 
     @Transactional
     public void transfer(String senderUsername, TransferDto dto) {
-        User sender = userService.getUserByUsername(senderUsername);
+        User sender = userService.findByEmail(senderUsername);
         User receiver = userService.getUserByAccountNumber(dto.getTargetAccountNumber());
 
         if (sender.getAccountNumber().equals(receiver.getAccountNumber())) {
