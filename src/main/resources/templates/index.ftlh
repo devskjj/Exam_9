@@ -1,50 +1,53 @@
+<#import "spring.ftl" as spring>
 <#import "layout.ftlh" as layout>
 
-<@layout.page title="Главная">
+<@layout.page title="">
     <div class="content-card">
-        <h1 class="page-title">💰 Добро пожаловать в электронный кошелек</h1>
+        <h1 class="page-title">💰 <@spring.message "app.title"/></h1>
 
         <#if isAuthenticated>
             <div class="welcome-section">
-                <h2>Здравствуйте, ${username}!</h2>
-                <p class="welcome-title">Ваш текущий баланс:</p>
-                <p class="balance-amount">${balance} сом</p>
+                <h2><@spring.messageArgs "user.greeting", [username!] /></h2>
+                <p class="welcome-title"><@spring.message "balance.current"/></p>
+                <p class="balance-amount">
+                    <@spring.messageArgs "user.balance", [balance!0] />
+                </p>
             </div>
 
             <div class="actions-container">
-                <a href="/profile" class="btn btn-primary">👤 Мой профиль</a>
-                <a href="/transfer" class="btn btn-success">💸 Перевести средства</a>
-                <a href="/payment" class="btn btn-primary">📱 Оплатить услуги</a>
+                <a href="/profile" class="btn btn-primary">👤 <@spring.message "nav.profile"/></a>
+                <a href="/transfer" class="btn btn-success">💸 <@spring.message "nav.transfer"/></a>
+                <a href="/payment" class="btn btn-primary">📱 <@spring.message "nav.payment"/></a>
             </div>
         <#else>
             <div class="guest-section">
                 <p class="guest-description">
-                    Управляйте своими финансами легко и безопасно
+                    <@spring.message "home.welcome"/>
                 </p>
 
                 <div class="auth-buttons">
-                    <a href="/auth/login" class="btn btn-primary">🔑 Войти</a>
-                    <a href="/auth/register" class="btn btn-success">📝 Регистрация</a>
+                    <a href="/auth/login" class="btn btn-primary">🔑 <@spring.message "nav.login"/></a>
+                    <a href="/auth/register" class="btn btn-success">📝 <@spring.message "nav.register"/></a>
                 </div>
             </div>
         </#if>
 
         <div class="features-grid">
             <div class="feature-item">
-                <h3 class="feature-title">💳 Личный счет</h3>
-                <p class="feature-description">Уникальный 6-значный номер счета для каждого пользователя</p>
+                <h3 class="feature-title">💳 <@spring.message "feature.account.title"/></h3>
+                <p class="feature-description"><@spring.message "feature.account.desc"/></p>
             </div>
             <div class="feature-item">
-                <h3 class="feature-title">💸 Переводы</h3>
-                <p class="feature-description">Мгновенные переводы между пользователями</p>
+                <h3 class="feature-title">💸 <@spring.message "feature.transfer.title"/></h3>
+                <p class="feature-description"><@spring.message "feature.transfer.desc"/></p>
             </div>
             <div class="feature-item">
-                <h3 class="feature-title">📱 Оплата услуг</h3>
-                <p class="feature-description">Оплачивайте услуги поставщиков прямо из кошелька</p>
+                <h3 class="feature-title">📱 <@spring.message "feature.payment.title"/></h3>
+                <p class="feature-description"><@spring.message "feature.payment.desc"/></p>
             </div>
             <div class="feature-item">
-                <h3 class="feature-title">📊 История</h3>
-                <p class="feature-description">Детальная история всех транзакций</p>
+                <h3 class="feature-title">📊 <@spring.message "feature.history.title"/></h3>
+                <p class="feature-description"><@spring.message "feature.history.desc"/></p>
             </div>
         </div>
     </div>
