@@ -102,4 +102,13 @@ public class UserService {
     public void saveUser(User user) {
         userRepository.save(user);
     }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmailIgnoreCase(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    public void save(User user) {
+        userRepository.save(user);
+    }
 }
