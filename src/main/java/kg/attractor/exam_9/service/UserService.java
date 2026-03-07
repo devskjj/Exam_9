@@ -59,6 +59,34 @@ public class UserService {
         return accountNumber;
     }
 
+
+    public UserProfileDto getUserProfileByEmail(String email) {
+        User user = userRepository.findByEmailIgnoreCase(email)
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+
+        UserProfileDto dto = new UserProfileDto();
+        dto.setId(user.getId());
+        dto.setUsername(user.getUsername());
+        dto.setEmail(user.getEmail());
+        dto.setAccountNumber(user.getAccountNumber());
+        dto.setBalance(user.getBalance());
+        dto.setRoleName(user.getRole().getName());
+
+        dto.setTransactions(transactionRepository.findByUserOrderByDateDesc(user)
+                .stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList()));
+
+        return dto;
+    }
+
+
+
+
+
+
+
+
     public UserProfileDto getUserProfile(String username) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));

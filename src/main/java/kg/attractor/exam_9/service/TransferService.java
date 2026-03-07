@@ -29,6 +29,10 @@ public class TransferService {
             throw new RuntimeException("Insufficient funds");
         }
 
+        if (dto.getAmount() <= 0) {
+            throw new RuntimeException("Сумма перевода должна быть положительной");
+        }
+
         sender.setBalance(sender.getBalance() - dto.getAmount());
         receiver.setBalance(receiver.getBalance() + dto.getAmount());
 
@@ -50,5 +54,7 @@ public class TransferService {
         userService.saveUser(receiver);
         transactionRepository.save(senderTransaction);
         transactionRepository.save(receiverTransaction);
+
+        log.info("Transfer from {} to {} amount: {}", sender.getEmail(), receiver.getEmail(), dto.getAmount());
     }
 }
